@@ -14,33 +14,34 @@ int main() {
     string str; cin >> str;
 
     int count = 0;
-    bool flag = true;
-    for (int i = 0; i < n - 1; i++) {
-        flag = true;
-        string new_str = "";
-        for (int j = 0; j < i+1; j++) {
-            new_str = str[str.length()-1-j] + new_str;
-        }
-        for (int j = 0; j < new_str.length(); j++) {
-            if (str[j] != new_str[j]) {
+    for (int i = 1; i < n; i++) {
+
+        bool flag = true;
+        for (int j = 0; j < n; j++) {
+
+            if (i + j >= n) 
+                break;
+            
+            if (str[j] != str[j + i]) {
                 flag = false;
                 break;
             }
+
         }
+
         if (flag) {
-            count = i + 1;
+            count = n - i;
+            break;
         }
     }
 
-    string obrez = "";
-    for (int i = count; i < str.size(); i++) { obrez = obrez + str[i]; }
+    string slice = "";
+    for (int i = count; i < str.size(); i++) { slice = slice + str[i]; }
 
-    string all = str;
-    for (int i = 1; i < k; i++) { all = all + (obrez == "" ? str : obrez); }
+    string result = str;
+    for (int i = 1; i < k; i++) { result = result + slice; }
     
-    int result = n * k - ((k - 1) * (count));
-
-    cout << all;
+    cout << result;
 
     return 0;
 }
